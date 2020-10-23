@@ -1,0 +1,8 @@
+
+server:
+  port: 8002
+
+eureka:
+  instance:
+    instance-id: payment8002
+

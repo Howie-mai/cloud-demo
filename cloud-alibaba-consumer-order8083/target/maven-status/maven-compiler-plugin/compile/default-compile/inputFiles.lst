@@ -1,0 +1,6 @@
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/controller/ConsumerSentinelController.java
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/AlibabaConsumerMain8083.java
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/feign/impl/SentinelFeignServiceImpl.java
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/controller/OpenFeignSentinelController.java
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/controller/OrderNacosController.java
+/Users/apple/howie/code/cloud/cloud-alibaba-consumer-order8083/src/main/java/com/mh/springcloud/feign/SentinelFeignService.java

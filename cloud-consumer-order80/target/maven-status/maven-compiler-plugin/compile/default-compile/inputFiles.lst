@@ -1,0 +1,6 @@
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/springcloud/OrderMain80.java
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/myrule/MyLbRule.java
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/springcloud/config/OrderConfig.java
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/springcloud/lb/LoadBalancer.java
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/springcloud/lb/MyLoadBalancer.java
+/Users/apple/howie/code/cloud/cloud-consumer-order80/src/main/java/com/mh/springcloud/controller/OrderController.java

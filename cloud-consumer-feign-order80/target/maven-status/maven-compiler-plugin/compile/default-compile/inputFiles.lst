@@ -1,0 +1,7 @@
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/controller/OrderHystrixController.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/config/FeignConfig.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/controller/OrderFeignController.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/service/OrderFeignService.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/service/OrderHystrixService.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/OrderFeignMain.java
+/Users/apple/howie/code/cloud/cloud-consumer-feign-order80/src/main/java/com/mh/springcloud/service/OrderHystrixFallBack.java

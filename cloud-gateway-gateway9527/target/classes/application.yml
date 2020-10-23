@@ -1,0 +1,45 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: payment_routh  #路由ID
+#          uri: http://localhost:8001  #匹配后提供服务的路由地址
+          uri: lb://CLOUD-PAYMENT-SERVICE  #匹配后提供服务的路由地址
+          filters:
+#            - AddRequestParameter=X-Request-Id,1024 #会在匹配的请求头上加一对请求头，名称为X-Request-Id 值为1024
+          predicates:
+            - Path=/payment/gatewayOne/**,/payment/gatewayTwo/**  #断言，路径相匹配的进行路由
+#            - Cookie=username,mh #带上cookie，不带上会报404 名字+正则表达式
+#            - Header=X-Request-Id, \d+ #带上Header，不带上会报404 名字+正则表达式(例子为一定有一个属性为名的正整数)
+            # curl http://localhost:9527/payment/gatewayOne/get/9 -H "Host:aini.mh.com"
+#            - Host=**.mh.com,**.zhku.com #只有带mh.com或zhku.com的域名才能访问
+#            - Method=GET #请求方法
+#            - Query=username, \d+  #要有参数名username 并且值为正整数
+
+#        - id: payment_routh2
+##          uri: http://localhost:8001
+#          uri: lb://CLOUD-PAYMENT-SERVICE
+#          predicates:
+#            - Path=/payment/gatewayTwo/**
+#            - After=2020-09-23T17:50:39.612+08:00[Asia/Shanghai] #在这时间后起效
+##            - Before=2020-09-23T17:38:39.612+08:00[Asia/Shanghai] #在这时间前起效
+##            - Between=2020-09-23T17:38:39.612+08:00[Asia/Shanghai],2020-09-23T17:38:39.612+08:00[Asia/Shanghai] #时间段
+#            - Method=POST
+
+
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+

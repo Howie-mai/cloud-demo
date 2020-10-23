@@ -1,0 +1,40 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Howie-mai/springcloud-config.git #仓库地址
+          search-paths:
+            - springcloud-config #搜索目录
+#          username: 494210688@qq.com
+#          password: 19970729iamMH
+      label: master #分支名称
+  # 配置rabbitmq
+  rabbitmq:
+    host: hymbb.cn
+    port: 5672
+    username: admin
+    password: admin0729
+
+eureka:
+  instance:
+    hostname: cloud-config-center
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+
+# 暴露bus刷新配置的端点
+# 发送请求 curl -X POST localhost:3344/actuator/bus-refresh 刷新全部微服务
+# curl -X POST localhost:3344/actuator/bus-refresh/{destination} 刷新某个微服务
+# destination: 微服务名 + 端口号
+# curl -X POST localhost:3344/actuator/bus-refresh/config-client:3355
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"

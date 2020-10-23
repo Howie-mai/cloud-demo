@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mh.springcloud.dao.PaymentDao">
+    <resultMap id="BaseResultMap" type="com.mh.springcloud.entities.Payment">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="serial" property="serial" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.mh.springcloud.entities.Payment"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into payment (serial) values (#{serial});
+     </insert>
+
+    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+        select * from payment where id = #{id};
+     </select>
+    <sql id="Base_Column_List">
+        id, content, info
+    </sql>
+    <sql id="Model_Where_Clause">
+        <where>
+            <if test="record.id!=null and record.id!= ''">
+                and id = #{record.id}
+            </if>
+            <if test="record.content!=null and record.content!= ''">
+                and content = #{record.content}
+            </if>
+            <if test="record.info!=null and record.info!= ''">
+                and info = #{record.info}
+            </if>
+        </where>
+    </sql>
+    <select id="selectByModelSelective" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from payment_info
+        <include refid="Model_Where_Clause" />
+        <if test="orderByClause!=null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into payment (serial)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.serial,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="insertBatchInfo">
+        insert into payment_info (id,content) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            replace(uuid(),'-',''),
+            #{item.content,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+<!--    <insert id="insertBatchAuto" useGeneratedKeys="true" keyProperty="id">-->
+<!--        insert into payment_auto (content,create_time,update_time) values-->
+<!--        <foreach collection="list" item="item" index="index" separator=",">-->
+<!--            (-->
+<!--            #{item.content,jdbcType=VARCHAR},-->
+<!--            #{item.createTime},-->
+<!--            #{item.updateTime}-->
+<!--            )-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <insert id="insertBatchAuto" keyProperty="id" useGeneratedKeys="true">
+            <foreach collection="list" item="item" separator=";">
+                insert into payment_auto
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="item.content != null">
+                        content,
+                    </if>
+                    <if test="item.createTime != null">
+                        create_time,
+                    </if>
+                    <if test="item.updateTime != null">
+                        update_time,
+                    </if>
+                </trim>
+                <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="item.content != null">
+                        #{item.content,jdbcType=VARCHAR},
+                    </if>
+                    <if test="item.createTime != null">
+                        #{item.createTime,jdbcType=TIMESTAMP},
+                    </if>
+                    <if test="item.updateTime != null">
+                        #{item.updateTime,jdbcType=TIMESTAMP},
+                    </if>
+                </trim>
+            </foreach>
+    </insert>
+
+    <insert id="insertBatchSelective" useGeneratedKeys="true" keyProperty="id">
+        <foreach collection="list" item="item" index="index" separator=";">
+            insert into payment
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.serial != null">
+                    serial,
+                </if>
+            </trim>
+
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.serial != null">
+                    #{item.serial,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+
+
+    <insert id="insertBatchInfoSelective">
+        <foreach collection="list" item="item" index="index" separator=";">
+            insert into payment_info
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                id,
+                <if test="item.content != null">
+                    content,
+                </if>
+                <if test="item.info != null">
+                    info,
+                </if>
+            </trim>
+
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                replace(uuid(),'-',''),
+                <if test="item.content != null">
+                    #{item.content,jdbcType=VARCHAR},
+                </if>
+                <if test="item.info != null">
+                    #{item.info,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: cloud-consumer-order
+  # 注册到zookeeper注册中心
+  cloud:
+    zookeeper:
+      connect-string: hymbb.cn:2181
+

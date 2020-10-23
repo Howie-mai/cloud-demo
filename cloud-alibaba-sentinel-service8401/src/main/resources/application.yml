@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: cloud-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: hymbb.cn:8848
+    sentinel:
+      transport:
+        dashboard: hymbb.cn:8858
+#        port: 8719 # 默认8719
+#        clientIp: 106.52.106.112
+      datasource:
+        ds1:
+          nacos:
+            server-addr: hymbb.cn:8848
+            dataId: ${spring.application.name}-flow
+            groupId: DEFAULT_GROUP
+            namespace: sentinelRule
+            data-type: json
+            # flow：流控  degrade：降级 param-flow：热点 system：系统 authority:授权
+            rule-type: flow
+        ds2:
+          nacos:
+            server-addr: hymbb.cn:8848
+            dataId: ${spring.application.name}-degrade
+            groupId: DEFAULT_GROUP
+            namespace: sentinelRule
+            data-type: json
+            # flow：流控  degrade：降级 param-flow：热点 system：系统 authority:授权
+            rule-type: degrade
+        ds3:
+          nacos:
+            server-addr: hymbb.cn:8848
+            dataId: ${spring.application.name}-paramFlow
+            groupId: DEFAULT_GROUP
+            namespace: sentinelRule
+            data-type: json
+            # flow：流控  degrade：降级 param-flow：热点 system：系统 authority:授权
+            rule-type: param-flow
+#        ds4:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            dataId: ${spring.application.name}-system
+#            groupId: DEFAULT_GROUP
+#            namespace: sentinelRule
+#            data-type: json
+#            # flow：流控  degrade：降级 param-flow：热点 system：系统 authority:授权
+#            rule-type: system
+#        ds5:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            dataId: ${spring.application.name}-authority
+#            groupId: DEFAULT_GROUP
+#            namespace: sentinelRule
+#            data-type: json
+#            # flow：流控  degrade：降级 param-flow：热点 system：系统 authority:授权
+#            rule-type: authority
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#激活sentinel对feign的支持
+feign:
+  sentinel:
+    enabled: true

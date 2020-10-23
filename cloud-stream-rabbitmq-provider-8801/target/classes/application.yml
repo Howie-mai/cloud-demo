@@ -1,0 +1,47 @@
+server:
+  port: 8801
+
+
+eureka:
+  instance:
+    hostname: send-8801
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+spring:
+  application:
+    name: cloud-stream-rbmq-service
+  cloud:
+    stream:
+      binders:  # 配置要绑定的rabbitmq的服务信息
+        defaultRabbit: # 表示定义的名称，用于binding整合
+          type: rabbit # 消息组件类型 还有一种是kafka
+          environment:
+            spring:
+              rabbitmq:
+                host: hymbb.cn
+                port: 5672
+                username: admin
+                password: admin0729
+                virtual-host: /
+      bindings: # 服务的整合处理
+        output: # 这个是一个名字的通道
+          destination: studyExchange # 要使用的名称定义
+          content-type: application/json # 消息类型 如果是文本则设置text/plain
+          binder: defaultRabbit # 设置要绑定的消息服务的具体设置
+        myoutput: # 自定义通道名字
+          destination: my-studyExchange
+        outputorder:
+          destination: my-order-studyExchange
+  rabbitmq:
+    host: hymbb.cn
+    port: 5672
+    username: admin
+    password: admin0729
+
+
+
+

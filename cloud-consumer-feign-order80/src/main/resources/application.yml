@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    # 注册进server
+    register-with-eureka: false
+    # 是否从EurekaServer抓取已有的注册信息。单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    #fetch-registry: true
+    service-url:
+      #defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+
+ribbon:
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 3000
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的实际
+  ConnectTimeout: 3000
+logging:
+  level:
+    # log日志以什么级别监控哪个窗口
+    com.mh.springcloud.service.*: debug
+#  file:
+#    name: log.log
+#    path: /log
+
+# feign对hystrix支持
+feign:
+  hystrix:
+    enabled: true
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true
+#      isolation:
+#        thread:
+#          timeoutInMilliseconds: 6000
+#    "***FeignClient#***method()": #格式是   类名#方法名()
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 10000
+
+
+

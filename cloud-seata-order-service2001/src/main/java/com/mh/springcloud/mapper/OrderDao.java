@@ -1,0 +1,25 @@
+package com.mh.springcloud.mapper;
+
+import com.mh.springcloud.bean.Order;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * ClassName：
+ * Time：20/10/20 下午3:42
+ * Description：
+ *
+ * @author mh
+ */
+@Mapper
+public interface OrderDao {
+    /**
+     * 1 新建订单     * @param order     * @return
+     */
+    int create(Order order);
+
+    /**
+     * 2 修改订单状态,从0改为1     * @param userId     * @param status     * @return
+     */
+    int update(@Param("userId") Long userId, @Param("status") Integer status);
+}
