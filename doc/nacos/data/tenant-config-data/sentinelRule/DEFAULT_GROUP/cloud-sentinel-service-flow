@@ -1,0 +1,30 @@
+[
+    {
+        "resource":"/rateLimit/byUrl",
+        "limitApp":"default",
+        "grade":1,
+        "count":1,
+        "strategy":0,
+        "controlBehavior":0,
+        "clusterMode":false
+    },
+    {
+        "resource":"byResource",
+        "limitApp":"default",
+        "grade":1,
+        "count":2,
+        "strategy":0,
+        "controlBehavior":0,
+        "clusterMode":false
+    },
+    {
+        "resource":"byMyself",
+        "limitApp":"default",
+        "grade":1,
+        "count":1,
+        "strategy":1,
+        "refResource":"byResource",
+        "controlBehavior":0,
+        "clusterMode":false
+    }
+]

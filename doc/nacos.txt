@@ -1,0 +1,56 @@
+
+#linux集群部署 nacos
+#1.下载nacos-server-xxx.tar.gz
+
+#2.解压
+tar -zxvf nacos-server-xxx.tar.gz
+
+#3.执行nacos-mysql.sql生成表
+
+#4.修改/conf/application.propertites，加上下面一段的
+   #spring.datasource.platform=mysql
+   ### Count of DB:
+   # db.num=1
+   ### Connect URL of DB:
+   # db.url.0=jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+   # db.user=nacos
+   # db.password=nacos
+
+#5.拷贝cluster.conf,备份原始的
+cp cluster.conf.example cluster.conf
+
+#6.修改cluster.conf的内容，说明我们三是一组的
+#不能是127.0.0.1 必须是Linux命令hostname -i能识别的IP
+ip1:port
+ip2:port
+ip3:port
+
+#7.伪集群，修改startup.sh脚本文件，让它用不同端口号执行（实际不必）
+#更改
+while getopts ":m:f:s:c:p:" opt -》while getopts “:m:f:s:c:p:P:” opt
+#后面加下面的
+P)
+	PORT=$OPTARG;;
+#最下面
+nohup $JAVA ${JAVA_OPT} nacos.nacos -》 nohup $JAVA - Dserver.port = ${PORT} ${JAVA_OPT} nacos.nacos
+#启动
+./startup.sh -P “端口号”
+
+#8.修改nginx配置/conf/nginx.conf
+upstream cluster{
+	第6步集群的三个地址
+	server xxx;
+}
+server{
+	listen 1111;
+	server_name localhost;
+	location / {
+		proxy_pass http://cluster;
+	}
+}
+
+#9.通过访问nginx的域名:1111访问nacos
+
+#10.代码里面所有nacos地址都要改成nginx的地址
+
+

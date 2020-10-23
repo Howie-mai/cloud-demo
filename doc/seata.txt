@@ -1,0 +1,21 @@
+1. 解压
+
+2. 更改file.conf文件
+service模块： vgroup_mapping.my_test_tx_group=“随意名字”
+store模式：
+	mode = “db”
+	db {
+		url:
+		username:
+		password:
+	}
+
+3. 创建seata数据库
+
+4. 创建表（SQL在conf文件夹里面）
+
+5. 修改registry.conf 
+type=“nacos”
+nacos{
+	
+}

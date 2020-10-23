@@ -1,0 +1,68 @@
+#通用配置参数，下面没特别说明都是表示这个
+resource: 资源名
+limitApp: 针对来源
+
+#流控配置 rule-type:flow
+grade: 针对应用 默认default
+grade: 阈值类型。0-线程数 1-QPS 默认为1
+count: 单机阈值
+clusterMode: 是否集群
+ClusterFlowConfig: clusterMode为true使用
+    flowId: 全局唯一的规则ID，由集群限流管控端分配
+    thresholdType: 集群阈值模式。默认（0）为单机均摊，1 为全局阈值
+    fallbackToLocalWhenFail: 如果 Token Server 不可用是否退化到单机限流 默认为true
+strategy: 流控模式。0-直接 1-关联 2-链路
+refResource: 关联资源、入口资源。 当strategy=1 || 2 使用
+controlBehavior: 流控效果。0-快速失败 1-Warm up 2-排队等待
+warmUpPeriodSec: 预热时长。当 controlBehavior=1 使用
+maxQueueingTimeMs: 超时时间。当 controlBehavior=2 使用
+
+#降级配置 rule-type:degrade
+grade: 降级策略。0-RT(响应时间) 1-异常比例 2-一分钟内异常数
+count: grade=1表示响应时间；grade=2表示异常比例；grade=3表示异常数量
+timeWindow: 时间窗口。
+cut：是否被降级熔断，如果true，则请求过来直接拒绝。默认为false
+passCount：降级策略为RT的时候用来统计超过count的数量。
+RT_MAX_EXCEED_N: 
+  -final int类型，值为5。
+  -RT的情况下，如果连续5个请求都大于count的值，会在窗口时间内进入降级状态；
+  -异常比例的情况下，总qps且异常数大于5才会进行异常比例的判断
+
+#热点配置 rule-type:param-rule
+paramIdx: 参数索引。
+count: 单机阈值。 QPS>=count会触发规则
+durationInSec: 统计窗口时长
+clusterMode: 是否集群
+ClusterFlowConfig: clusterMode为true使用,参数与flow一样
+paramFlowItemList: 参数例外项 List
+    classType: 参数类型。支持基本类型和String。ex:int | String ….
+    object: 参数值
+    count: 限流阈值。针对该参数的该值限制的值
+
+# 系统规则 rule-type: system
+# 该配置选择哪个就设置哪个对应的值，不需要阈值类型的参数值
+highestSystemLoad: LOAD;
+highestCpuUsage: CPU使用率 ;
+qps: 入口QPS;
+avgRt: RT;
+maxThread: 线程数;
+
+# 授权规则 rule-type:authority
+limitApp: 流控应用
+strategy: 授权类型 0-白名单 1-黑名单
+
+# 集群流控 rule-type:gw-flow
+
+# 及其列表 rule-type:gw-api-group
+
+
+
+
+
+
+
+
+
+
+
+
