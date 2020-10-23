@@ -1,9 +1,0 @@
-[
-    {
-        "resource":"/testD",
-        "grade": 0,
-        "count": 100,
-        "timeWindow":10,
-        "cut":true
-    }
-]
