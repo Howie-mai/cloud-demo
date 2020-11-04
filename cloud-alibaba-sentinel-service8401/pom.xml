@@ -11,6 +11,11 @@
     <artifactId>cloud-alibaba-sentinel-service8401</artifactId>
 
     <dependencies>
+        <!--rocketmq依赖-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+        </dependency>
         <!-- SpringCloud ailibaba nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
