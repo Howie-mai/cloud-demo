@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: cloud-sentinel-service
+  profiles:
+    #    active: test
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: 127.0.0.1:1111 #Nacos服务注册中心地址
+        server-addr: 127.0.0.1:8848 #Nacos服务注册中心地址
+      config:
+#        server-addr: 127.0.0.1:1111 #Nacos作为配置中心地址
+        server-addr: 127.0.0.1:8848 #Nacos作为配置中心地址
+        file-extension: yaml #指定yaml格式配置
+#        group: DEV_GROUP
+#        namespace: dev
+#        ext-config[0]:
+#          data-id: common.properties
+#          refresh: true
+#          group: DEFAULT_GROUP
+
+
+
+
+
+
+
+# dataId完整格式
+# ${spring.application.name} - ${spring.profile.active}.${spring.cloud.nacos.config.file-extension}

@@ -27,8 +27,8 @@ public class TestMqController {
     }
 
     @RequestMapping(value = "/sendWithTags", method = RequestMethod.GET)
-    public String sendWithTags(String msg) {
-        senderService.sendWithTags(msg, "tagStr");
+    public String sendWithTags(String msg,String tag) {
+        senderService.sendWithTags(msg, tag);
         return "带tag字符串消息发送成功!";
     }
 

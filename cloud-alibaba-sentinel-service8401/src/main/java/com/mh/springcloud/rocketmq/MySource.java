@@ -11,6 +11,9 @@ import org.springframework.messaging.MessageChannel;
  * @author mh
  */
 public interface MySource {
-    @Output("output1")
+    String OUTPUT1 = "output1";
+    @Output(OUTPUT1)
     MessageChannel output1();
+
+
 }
