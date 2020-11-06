@@ -1,6 +1,7 @@
 package com.mh.springcloud.rocketmq;
 
 import org.apache.rocketmq.common.message.MessageConst;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -8,6 +9,9 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName：
@@ -21,14 +25,21 @@ public class SenderService {
     @Autowired
     private MySource source;
 
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
+
     /**
      * 发送字符串
      *
      * @param msg
      */
     public void send(String msg) {
-        Message<String> message = MessageBuilder.withPayload(msg).build();
+        Message<String> message = MessageBuilder.withPayload(msg)
+                .setHeader(MessageConst.PROPERTY_TAGS, "tagStr")
+                .build();
         source.output1().send(message);
+
+//        rocketMQTemplate.convertAndSend("OUTPUT-01",msg);
     }
 
     /**
@@ -39,9 +50,13 @@ public class SenderService {
      */
     public void sendWithTags(String msg, String tag) {
         Message<String> message = MessageBuilder.withPayload(msg)
-                .setHeader(MessageConst.PROPERTY_TAGS, tag)
+                .setHeader("rocketmq_TAGS", tag)
                 .build();
-        source.output1().send(message);
+//        source.output1().send(message);
+        Map<String,Object> map = new HashMap<>();
+        map.put("TAGS", tag);
+        rocketMQTemplate.convertAndSend("OUTPUT-01",msg,map);
+        rocketMQTemplate.send("OUTPUT-01",message);
     }
 
 //    /**

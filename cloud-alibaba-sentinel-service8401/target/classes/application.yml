@@ -2,12 +2,12 @@ spring:
   application:
     name: cloud-sentinel-service
   cloud:
-    nacos:
-      discovery:
-        server-addr: hymbb.cn:8848
-      config:
-        server-addr: 127.0.0.1:8848
-        file-extension: yaml
+#    nacos:
+#      discovery:
+#        server-addr: hymbb.cn:8848
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        file-extension: yaml
     sentinel:
       transport:
         dashboard: 127.0.0.1:8858
