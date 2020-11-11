@@ -56,6 +56,7 @@ public class SenderService {
         Map<String,Object> map = new HashMap<>();
         map.put("TAGS", tag);
         rocketMQTemplate.convertAndSend("OUTPUT-01",msg,map);
+//        rocketMQTemplate.
         rocketMQTemplate.send("OUTPUT-01",message);
     }
 
