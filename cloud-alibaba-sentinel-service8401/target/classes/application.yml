@@ -101,3 +101,6 @@ management:
 feign:
   sentinel:
     enabled: true
+
+rocketmq:
+  name-server: 192.168.50.2
